@@ -81,3 +81,5 @@ void initLCD(void)
 	cmdLCD(0x01);	//Clear LCD
 	cmdLCD(0x06);	//Entry mode, auto increment with no shift
 }
+
+
