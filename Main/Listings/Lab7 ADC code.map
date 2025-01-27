@@ -22,8 +22,10 @@ Section Cross References
     main.o(.text.main) refers to main.o(.bss.StartUpLock) for StartUpLock
     main.o(.text.main) refers to timer.o(.text.Init_Sampling) for Init_Sampling
     main.o(.text.main) refers to timer.o(.text.Init_HoldButton) for Init_HoldButton
-    main.o(.text.main) refers to main.o(.bss.HoldTimer) for HoldTimer
+    main.o(.text.main) refers to main.o(.bss.HoldRelease) for HoldRelease
     main.o(.text.main) refers to main.o(.bss.ButtonMode) for ButtonMode
+    main.o(.text.main) refers to lcd.o(.text.cmdLCD) for cmdLCD
+    main.o(.text.main) refers to lcd.o(.text.putLCD) for putLCD
     main.o(.ARM.exidx.text.main) refers to main.o(.text.main) for [Anonymous Symbol]
     main.o(.text.TIM2_IRQHandler) refers to adc.o(.text.read_adc_LDR) for read_adc_LDR
     main.o(.text.TIM2_IRQHandler) refers to main.o(.bss.ADC_DATA_LDR) for ADC_DATA_LDR
@@ -203,6 +205,7 @@ Removing Unused input sections from the image.
     Removing main.o(.ARM.exidx.text.main), (8 bytes).
     Removing main.o(.ARM.exidx.text.TIM2_IRQHandler), (8 bytes).
     Removing main.o(.ARM.exidx.text.TIM3_IRQHandler), (8 bytes).
+    Removing main.o(.bss.HoldTimer), (4 bytes).
     Removing main.o(.ARM.use_no_argv), (4 bytes).
     Removing lcd.o(.text), (0 bytes).
     Removing lcd.o(.ARM.exidx.text.lcd_delayus), (8 bytes).
@@ -226,7 +229,7 @@ Removing Unused input sections from the image.
     Removing system_stm32f4xx.o(.ARM.exidx.text.SystemCoreClockUpdate), (8 bytes).
     Removing system_stm32f4xx.o(.rodata.APBPrescTable), (8 bytes).
 
-36 unused section(s) (total 228 bytes) removed from the image.
+37 unused section(s) (total 232 bytes) removed from the image.
 
 ==============================================================================
 
@@ -366,26 +369,26 @@ Image Symbol Table
     [Anonymous Symbol]                       0x08000644   Section        0  system_stm32f4xx.o(.text.SystemInit)
     [Anonymous Symbol]                       0x08000658   Section        0  main.o(.text.TIM2_IRQHandler)
     [Anonymous Symbol]                       0x080006e0   Section        0  main.o(.text.TIM3_IRQHandler)
-    [Anonymous Symbol]                       0x08000790   Section        0  lcd.o(.text.WaitLcdBusy)
-    [Anonymous Symbol]                       0x0800079c   Section        0  lcd.o(.text.cmdLCD)
-    [Anonymous Symbol]                       0x080007cc   Section        0  lcd.o(.text.initLCD)
-    [Anonymous Symbol]                       0x08000840   Section        0  adc.o(.text.init_ADC)
-    [Anonymous Symbol]                       0x0800093c   Section        0  dac.o(.text.init_DAC)
-    [Anonymous Symbol]                       0x0800097c   Section        0  lcd.o(.text.lcd_delayus)
-    [Anonymous Symbol]                       0x080009cc   Section        0  main.o(.text.main)
-    [Anonymous Symbol]                       0x08000b54   Section        0  lcd.o(.text.putLCD)
-    [Anonymous Symbol]                       0x08000b84   Section        0  adc.o(.text.read_adc_LDR)
-    [Anonymous Symbol]                       0x08000bbc   Section        0  adc.o(.text.read_adc_MIC)
-    [Anonymous Symbol]                       0x08000bf4   Section        0  adc.o(.text.read_adc_POT)
-    [Anonymous Symbol]                       0x08000c2c   Section        0  lcd.o(.text.set_LCD_data)
-    $v0                                      0x08000c4a   Number         0  fpinit.o(x$fpl$fpinit)
-    x$fpl$fpinit                             0x08000c4a   Section       26  fpinit.o(x$fpl$fpinit)
+    [Anonymous Symbol]                       0x080007e0   Section        0  lcd.o(.text.WaitLcdBusy)
+    [Anonymous Symbol]                       0x080007ec   Section        0  lcd.o(.text.cmdLCD)
+    [Anonymous Symbol]                       0x0800081c   Section        0  lcd.o(.text.initLCD)
+    [Anonymous Symbol]                       0x08000890   Section        0  adc.o(.text.init_ADC)
+    [Anonymous Symbol]                       0x0800098c   Section        0  dac.o(.text.init_DAC)
+    [Anonymous Symbol]                       0x080009cc   Section        0  lcd.o(.text.lcd_delayus)
+    [Anonymous Symbol]                       0x08000a1c   Section        0  main.o(.text.main)
+    [Anonymous Symbol]                       0x08000dc0   Section        0  lcd.o(.text.putLCD)
+    [Anonymous Symbol]                       0x08000df0   Section        0  adc.o(.text.read_adc_LDR)
+    [Anonymous Symbol]                       0x08000e28   Section        0  adc.o(.text.read_adc_MIC)
+    [Anonymous Symbol]                       0x08000e60   Section        0  adc.o(.text.read_adc_POT)
+    [Anonymous Symbol]                       0x08000e98   Section        0  lcd.o(.text.set_LCD_data)
+    $v0                                      0x08000eb6   Number         0  fpinit.o(x$fpl$fpinit)
+    x$fpl$fpinit                             0x08000eb6   Section       26  fpinit.o(x$fpl$fpinit)
     .bss                                     0x20000008   Section       96  libspace.o(.bss)
-    Heap_Mem                                 0x20000088   Data         512  startup_stm32f429xx.o(HEAP)
-    HEAP                                     0x20000088   Section      512  startup_stm32f429xx.o(HEAP)
-    Stack_Mem                                0x20000288   Data        1024  startup_stm32f429xx.o(STACK)
-    STACK                                    0x20000288   Section     1024  startup_stm32f429xx.o(STACK)
-    __initial_sp                             0x20000688   Data           0  startup_stm32f429xx.o(STACK)
+    Heap_Mem                                 0x20000080   Data         512  startup_stm32f429xx.o(HEAP)
+    HEAP                                     0x20000080   Section      512  startup_stm32f429xx.o(HEAP)
+    Stack_Mem                                0x20000280   Data        1024  startup_stm32f429xx.o(STACK)
+    STACK                                    0x20000280   Section     1024  startup_stm32f429xx.o(STACK)
+    __initial_sp                             0x20000680   Data           0  startup_stm32f429xx.o(STACK)
 
     Global Symbols
 
@@ -595,25 +598,25 @@ Image Symbol Table
     SystemCoreClockUpdate                    0x08000515   Thumb Code   302  system_stm32f4xx.o(.text.SystemCoreClockUpdate)
     SystemInit                               0x08000645   Thumb Code    18  system_stm32f4xx.o(.text.SystemInit)
     TIM2_IRQHandler                          0x08000659   Thumb Code   134  main.o(.text.TIM2_IRQHandler)
-    TIM3_IRQHandler                          0x080006e1   Thumb Code   176  main.o(.text.TIM3_IRQHandler)
-    WaitLcdBusy                              0x08000791   Thumb Code    12  lcd.o(.text.WaitLcdBusy)
-    cmdLCD                                   0x0800079d   Thumb Code    48  lcd.o(.text.cmdLCD)
-    initLCD                                  0x080007cd   Thumb Code   116  lcd.o(.text.initLCD)
-    init_ADC                                 0x08000841   Thumb Code   252  adc.o(.text.init_ADC)
-    init_DAC                                 0x0800093d   Thumb Code    64  dac.o(.text.init_DAC)
-    lcd_delayus                              0x0800097d   Thumb Code    80  lcd.o(.text.lcd_delayus)
-    main                                     0x080009cd   Thumb Code   392  main.o(.text.main)
-    putLCD                                   0x08000b55   Thumb Code    48  lcd.o(.text.putLCD)
-    read_adc_LDR                             0x08000b85   Thumb Code    54  adc.o(.text.read_adc_LDR)
-    read_adc_MIC                             0x08000bbd   Thumb Code    54  adc.o(.text.read_adc_MIC)
-    read_adc_POT                             0x08000bf5   Thumb Code    54  adc.o(.text.read_adc_POT)
-    set_LCD_data                             0x08000c2d   Thumb Code    30  lcd.o(.text.set_LCD_data)
-    _fp_init                                 0x08000c4b   Thumb Code    26  fpinit.o(x$fpl$fpinit)
-    __fplib_config_fpu_vfp                   0x08000c63   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    __fplib_config_pureend_doubles           0x08000c63   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    AHBPrescTable                            0x08000c64   Data          16  system_stm32f4xx.o(.rodata.AHBPrescTable)
-    Region$$Table$$Base                      0x08000c74   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08000c94   Number         0  anon$$obj.o(Region$$Table)
+    TIM3_IRQHandler                          0x080006e1   Thumb Code   256  main.o(.text.TIM3_IRQHandler)
+    WaitLcdBusy                              0x080007e1   Thumb Code    12  lcd.o(.text.WaitLcdBusy)
+    cmdLCD                                   0x080007ed   Thumb Code    48  lcd.o(.text.cmdLCD)
+    initLCD                                  0x0800081d   Thumb Code   116  lcd.o(.text.initLCD)
+    init_ADC                                 0x08000891   Thumb Code   252  adc.o(.text.init_ADC)
+    init_DAC                                 0x0800098d   Thumb Code    64  dac.o(.text.init_DAC)
+    lcd_delayus                              0x080009cd   Thumb Code    80  lcd.o(.text.lcd_delayus)
+    main                                     0x08000a1d   Thumb Code   932  main.o(.text.main)
+    putLCD                                   0x08000dc1   Thumb Code    48  lcd.o(.text.putLCD)
+    read_adc_LDR                             0x08000df1   Thumb Code    54  adc.o(.text.read_adc_LDR)
+    read_adc_MIC                             0x08000e29   Thumb Code    54  adc.o(.text.read_adc_MIC)
+    read_adc_POT                             0x08000e61   Thumb Code    54  adc.o(.text.read_adc_POT)
+    set_LCD_data                             0x08000e99   Thumb Code    30  lcd.o(.text.set_LCD_data)
+    _fp_init                                 0x08000eb7   Thumb Code    26  fpinit.o(x$fpl$fpinit)
+    __fplib_config_fpu_vfp                   0x08000ecf   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fplib_config_pureend_doubles           0x08000ecf   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    AHBPrescTable                            0x08000ed0   Data          16  system_stm32f4xx.o(.rodata.AHBPrescTable)
+    Region$$Table$$Base                      0x08000ee0   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08000f00   Number         0  anon$$obj.o(Region$$Table)
     SystemCoreClock                          0x20000000   Data           4  system_stm32f4xx.o(.data.SystemCoreClock)
     __libspace_start                         0x20000008   Data          96  libspace.o(.bss)
     ADC_DATA_LDR                             0x20000068   Data           2  main.o(.bss.ADC_DATA_LDR)
@@ -622,9 +625,8 @@ Image Symbol Table
     ADC_DATA_POT                             0x2000006c   Data           2  main.o(.bss.ADC_DATA_POT)
     ButtonMode                               0x20000070   Data           4  main.o(.bss.ButtonMode)
     HoldRelease                              0x20000074   Data           4  main.o(.bss.HoldRelease)
-    HoldTimer                                0x20000078   Data           4  main.o(.bss.HoldTimer)
-    RedFlash                                 0x2000007c   Data           4  main.o(.bss.RedFlash)
-    StartUpLock                              0x20000080   Data           4  main.o(.bss.StartUpLock)
+    RedFlash                                 0x20000078   Data           4  main.o(.bss.RedFlash)
+    StartUpLock                              0x2000007c   Data           4  main.o(.bss.StartUpLock)
 
 
 
@@ -634,9 +636,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000279
 
-  Load Region LR_1 (Base: 0x08000000, Size: 0x00000c98, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x08000000, Size: 0x00000f04, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00000c94, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00000f00, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -717,35 +719,35 @@ Memory Map of the image
     0x08000656   0x08000656   0x00000002   PAD
     0x08000658   0x08000658   0x00000086   Code   RO           32    .text.TIM2_IRQHandler  main.o
     0x080006de   0x080006de   0x00000002   PAD
-    0x080006e0   0x080006e0   0x000000b0   Code   RO           34    .text.TIM3_IRQHandler  main.o
-    0x08000790   0x08000790   0x0000000c   Code   RO           54    .text.WaitLcdBusy   lcd.o
-    0x0800079c   0x0800079c   0x00000030   Code   RO           60    .text.cmdLCD        lcd.o
-    0x080007cc   0x080007cc   0x00000074   Code   RO           64    .text.initLCD       lcd.o
-    0x08000840   0x08000840   0x000000fc   Code   RO            2    .text.init_ADC      adc.o
-    0x0800093c   0x0800093c   0x00000040   Code   RO           17    .text.init_DAC      dac.o
-    0x0800097c   0x0800097c   0x00000050   Code   RO           52    .text.lcd_delayus   lcd.o
-    0x080009cc   0x080009cc   0x00000188   Code   RO           30    .text.main          main.o
-    0x08000b54   0x08000b54   0x00000030   Code   RO           62    .text.putLCD        lcd.o
-    0x08000b84   0x08000b84   0x00000036   Code   RO            4    .text.read_adc_LDR  adc.o
-    0x08000bba   0x08000bba   0x00000002   PAD
-    0x08000bbc   0x08000bbc   0x00000036   Code   RO            8    .text.read_adc_MIC  adc.o
-    0x08000bf2   0x08000bf2   0x00000002   PAD
-    0x08000bf4   0x08000bf4   0x00000036   Code   RO            6    .text.read_adc_POT  adc.o
-    0x08000c2a   0x08000c2a   0x00000002   PAD
-    0x08000c2c   0x08000c2c   0x0000001e   Code   RO           56    .text.set_LCD_data  lcd.o
-    0x08000c4a   0x08000c4a   0x0000001a   Code   RO          223    x$fpl$fpinit        fz_wm.l(fpinit.o)
-    0x08000c64   0x08000c64   0x00000010   Data   RO          122    .rodata.AHBPrescTable  system_stm32f4xx.o
-    0x08000c74   0x08000c74   0x00000020   Data   RO          298    Region$$Table       anon$$obj.o
+    0x080006e0   0x080006e0   0x00000100   Code   RO           34    .text.TIM3_IRQHandler  main.o
+    0x080007e0   0x080007e0   0x0000000c   Code   RO           54    .text.WaitLcdBusy   lcd.o
+    0x080007ec   0x080007ec   0x00000030   Code   RO           60    .text.cmdLCD        lcd.o
+    0x0800081c   0x0800081c   0x00000074   Code   RO           64    .text.initLCD       lcd.o
+    0x08000890   0x08000890   0x000000fc   Code   RO            2    .text.init_ADC      adc.o
+    0x0800098c   0x0800098c   0x00000040   Code   RO           17    .text.init_DAC      dac.o
+    0x080009cc   0x080009cc   0x00000050   Code   RO           52    .text.lcd_delayus   lcd.o
+    0x08000a1c   0x08000a1c   0x000003a4   Code   RO           30    .text.main          main.o
+    0x08000dc0   0x08000dc0   0x00000030   Code   RO           62    .text.putLCD        lcd.o
+    0x08000df0   0x08000df0   0x00000036   Code   RO            4    .text.read_adc_LDR  adc.o
+    0x08000e26   0x08000e26   0x00000002   PAD
+    0x08000e28   0x08000e28   0x00000036   Code   RO            8    .text.read_adc_MIC  adc.o
+    0x08000e5e   0x08000e5e   0x00000002   PAD
+    0x08000e60   0x08000e60   0x00000036   Code   RO            6    .text.read_adc_POT  adc.o
+    0x08000e96   0x08000e96   0x00000002   PAD
+    0x08000e98   0x08000e98   0x0000001e   Code   RO           56    .text.set_LCD_data  lcd.o
+    0x08000eb6   0x08000eb6   0x0000001a   Code   RO          223    x$fpl$fpinit        fz_wm.l(fpinit.o)
+    0x08000ed0   0x08000ed0   0x00000010   Data   RO          122    .rodata.AHBPrescTable  system_stm32f4xx.o
+    0x08000ee0   0x08000ee0   0x00000020   Data   RO          298    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x08000c94, Size: 0x00000004, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x08000f00, Size: 0x00000004, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x08000c94   0x00000004   Data   RW          121    .data.SystemCoreClock  system_stm32f4xx.o
+    0x20000000   0x08000f00   0x00000004   Data   RW          121    .data.SystemCoreClock  system_stm32f4xx.o
 
 
-    Execution Region ER_ZI (Exec base: 0x20000008, Load base: 0x08000c98, Size: 0x00000680, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_ZI (Exec base: 0x20000008, Load base: 0x08000f04, Size: 0x00000678, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -753,15 +755,13 @@ Memory Map of the image
     0x20000068        -       0x00000002   Zero   RW           41    .bss.ADC_DATA_LDR   main.o
     0x2000006a        -       0x00000002   Zero   RW           43    .bss.ADC_DATA_MIC   main.o
     0x2000006c        -       0x00000002   Zero   RW           42    .bss.ADC_DATA_POT   main.o
-    0x2000006e   0x08000c98   0x00000002   PAD
+    0x2000006e   0x08000f04   0x00000002   PAD
     0x20000070        -       0x00000004   Zero   RW           40    .bss.ButtonMode     main.o
     0x20000074        -       0x00000004   Zero   RW           39    .bss.HoldRelease    main.o
-    0x20000078        -       0x00000004   Zero   RW           38    .bss.HoldTimer      main.o
-    0x2000007c        -       0x00000004   Zero   RW           36    .bss.RedFlash       main.o
-    0x20000080        -       0x00000004   Zero   RW           37    .bss.StartUpLock    main.o
-    0x20000084   0x08000c98   0x00000004   PAD
-    0x20000088        -       0x00000200   Zero   RW          108    HEAP                startup_stm32f429xx.o
-    0x20000288        -       0x00000400   Zero   RW          107    STACK               startup_stm32f429xx.o
+    0x20000078        -       0x00000004   Zero   RW           36    .bss.RedFlash       main.o
+    0x2000007c        -       0x00000004   Zero   RW           37    .bss.StartUpLock    main.o
+    0x20000080        -       0x00000200   Zero   RW          108    HEAP                startup_stm32f429xx.o
+    0x20000280        -       0x00000400   Zero   RW          107    STACK               startup_stm32f429xx.o
 
 
 ==============================================================================
@@ -771,21 +771,21 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       414          0          0          0          0       2478   adc.o
+       414          0          0          0          0       2475   adc.o
         26          0          0          0          0        913   buttons.o
          2          0          0          0          0        316   buzzer.o
-        64          0          0          0          0       2134   dac.o
+        64          0          0          0          0       2131   dac.o
        380          0          0          0          0       2437   lcd.o
         40          0          0          0          0        908   led.o
-       882          0          0          0         26       3242   main.o
+      1502          0          0          0         22       3381   main.o
         64         26        428          0       1536        884   startup_stm32f429xx.o
        320          0         16          4          0       2801   system_stm32f4xx.o
        180          0          0          0          0       2434   timer.o
 
     ----------------------------------------------------------------------
-      2390         26        476          4       1568      18547   Object Totals
+      3010         26        476          4       1560      18680   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        18          0          0          0          6          0   (incl. Padding)
+        18          0          0          0          2          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -834,15 +834,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      2744         42        476          4       1664      18999   Grand Totals
-      2744         42        476          4       1664      18999   ELF Image Totals
-      2744         42        476          4          0          0   ROM Totals
+      3364         42        476          4       1656      19132   Grand Totals
+      3364         42        476          4       1656      19132   ELF Image Totals
+      3364         42        476          4          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 3220 (   3.14kB)
-    Total RW  Size (RW Data + ZI Data)              1668 (   1.63kB)
-    Total ROM Size (Code + RO Data + RW Data)       3224 (   3.15kB)
+    Total RO  Size (Code + RO Data)                 3840 (   3.75kB)
+    Total RW  Size (RW Data + ZI Data)              1660 (   1.62kB)
+    Total ROM Size (Code + RO Data + RW Data)       3844 (   3.75kB)
 
 ==============================================================================
 

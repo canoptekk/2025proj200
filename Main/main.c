@@ -55,21 +55,116 @@ int main(void)
 			
 		//Hold mode button input
 		if(GPIOC->IDR	& (1<<13)){
-			HoldTimer++;
 			TIM3->CR1|=TIM_CR1_CEN;
 		} else{
-			HoldTimer = 0;
 			TIM3->CR1&=~TIM_CR1_CEN;
 			TIM3->CNT = 0;
 		}
 		
 		
-		//4 buttons
+		
+		
+	if(	HoldRelease == 0){
+		
+				//4 buttons
 		if(GPIOG->IDR & (1<<0)){
-			ButtonMode = 0;	
+			ButtonMode = 0;
+				cmdLCD(LCD_LINE2);
+				putLCD('H');
+				putLCD('E');
+				putLCD('A');
+				putLCD('R');
+				putLCD('T');
+				putLCD('R');
+				putLCD('A');
+				putLCD('T');
+				putLCD('E');
+				putLCD('=');
+				putLCD('1');
+				putLCD('0');
+				putLCD('6');
+				putLCD('B');
+				putLCD('P');
+				putLCD('M');
+			//When button A is pressed, the bottom row on the LCD will display HEARTRATE and the BPM
 		}
 		if(GPIOG->IDR & (1<<1)){
 			ButtonMode = 1;	
+				cmdLCD(LCD_LINE2);
+			
+				putLCD('O');
+				putLCD('X');
+				putLCD('Y');
+				putLCD('G');
+				putLCD('E');
+				putLCD('N');
+				putLCD('=');
+				putLCD('9');
+				putLCD('8');
+				putLCD('.');
+				putLCD('7');
+				putLCD('%');
+				putLCD(' ');
+				putLCD(' ');
+				putLCD(' ');
+				putLCD(' ');
+			//When button B is pressed, the bottom row on the LCD will display OXYGEN and the O2 percentage
+		}
+		if(GPIOG->IDR & (1<<2)){
+			ButtonMode = 2;	
+
+				cmdLCD(LCD_LINE2);
+				putLCD('H');
+				putLCD('U');
+				putLCD('M');
+				putLCD('I');
+				putLCD('D');
+				putLCD('I');
+				putLCD('T');
+				putLCD('Y');
+				putLCD('=');
+				putLCD('8');
+				putLCD('9');
+				putLCD('%');
+				putLCD(' ');
+				putLCD(' ');
+				putLCD(' ');
+				putLCD(' ');
+			//When button C is pressed, the bottom row on the LCD will display HUMIDITY and the percentage
+		}
+		if(GPIOG->IDR & (1<<3)){
+			ButtonMode = 3;	
+				
+				cmdLCD(LCD_LINE2);
+				putLCD('M');
+				putLCD('O');
+				putLCD('V');
+				putLCD('E');
+				putLCD('M');
+				putLCD('E');
+				putLCD('N');
+				putLCD('T');
+				putLCD('=');
+				putLCD('2');
+				putLCD('7');
+				putLCD('.');
+				putLCD('6');
+				putLCD('m');
+				putLCD('m');
+				putLCD(' ');
+			//When button D is pressed, the bottom row on the LCD will display MOVEMENT and the distance in milimeters
+		}
+	/*	
+		//4 buttons
+		if(GPIOG->IDR & (1<<0)){
+			ButtonMode = 0;	
+			cmdLCD(LCD_LINE2);
+			putLCD('H');
+		}
+		if(GPIOG->IDR & (1<<1)){
+			ButtonMode = 1;	
+			cmdLCD(LCD_LINE2);
+			putLCD('P');
 		}
 		if(GPIOG->IDR & (1<<2)){
 			ButtonMode = 2;	
@@ -77,8 +172,27 @@ int main(void)
 		if(GPIOG->IDR & (1<<3)){
 			ButtonMode = 3;	
 		}
-		
-		
+		*/
+	}
+		//LCD display
+		cmdLCD(LCD_LINE1);							//displays the heart rate and oxygen on the LCD
+		putLCD('H');
+		putLCD('R');
+		putLCD('=');
+		putLCD('1');
+		putLCD('0');
+		putLCD('5');
+		putLCD(' ');
+		putLCD('&');
+		putLCD(' ');
+		putLCD('O');
+		putLCD('2');
+		putLCD('=');
+		putLCD('9');
+		putLCD('8');
+		putLCD('.');
+		putLCD('7');
+		putLCD('%');
 		
 }
 }
@@ -138,10 +252,22 @@ void TIM3_IRQHandler(void)
 		TIM2->CR1 &= ~TIM_CR1_CEN;	//disables timer 2 (prevents samples being taken)	
 		GPIOB->BSRR |= 0x40000000;	//turns off red LED
 		cmdLCD(LCD_LINE2);
+		putLCD(' ');
+		putLCD(' ');
+		putLCD(' ');
+		putLCD(' ');
+		putLCD(' ');
+		putLCD(' ');
 		putLCD('H');
 		putLCD('O');
 		putLCD('L');
 		putLCD('D');
+		putLCD(' ');
+		putLCD(' ');
+		putLCD(' ');
+		putLCD(' ');
+		putLCD(' ');
+		putLCD(' ');
 	}else{
 		HoldRelease = 0;
 		TIM2->CR1 |= TIM_CR1_CEN; //resumes timer (sampling)
